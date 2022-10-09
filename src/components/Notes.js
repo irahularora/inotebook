@@ -14,7 +14,7 @@ export default function Notes(props) {
             getNotes()
         }
         else{
-            history('/login')
+            history('/auth')
         }
     })
     const ref = useRef(null)
@@ -26,13 +26,12 @@ export default function Notes(props) {
     return (
         <>
         <Updatemodal refer={ref} currentnote={note} showAlert={props.showAlert}/>
-            <div className="row my-3">
+            <div className="row my-3" style={{display: "flex", justifyContent: 'space-between'}}>
                 <h2>Your Notes</h2>
                 <p style={{textAlign:"center"}} >
                    {notes.length===0 && 'No Notes To Display'}
                 </p>
                 
-
                 {notes.map((notes) => {
                     return <Noteitem key={notes._id} updateNote={updater} note={notes} showAlert={props.showAlert} />
                 })}

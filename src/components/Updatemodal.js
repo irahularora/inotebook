@@ -15,9 +15,9 @@ export default function Updatemodal(props) {
     const handleform = () => {
         editNote(currentnote._id, currentnote.title, currentnote.description)
         refclose.current.click()
-        props.showAlert("Note Updated Successfully",'success')
+        props.showAlert("Note Updated Successfully", 'success')
     }
-    
+
     return (
         <div> <button ref={props.refer} type="button" style={{ display: "none" }} class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Launch demo modal
@@ -34,9 +34,10 @@ export default function Updatemodal(props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
-                                Modal title
+                                Update Note
                             </h5>
                             <button
+                                style={{ border: "none", fontSize: "2rem", background: "white" }}
                                 type="button"
                                 className="close"
                                 data-dismiss="modal"
@@ -46,8 +47,8 @@ export default function Updatemodal(props) {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <form className='my-3'>
-                                <div className="form-group my-3">
+                            <form className='my-3 former'>
+                                <div className="form-group grouper my-3">
                                     <label htmlFor="exampleInputEmail1">Title</label>
                                     <input
                                         type="text"
@@ -59,16 +60,18 @@ export default function Updatemodal(props) {
                                         value={currentnote.title}
                                     />
                                 </div>
-                                <div className="form-group my-3">
+                                <div className="form-group grouper my-3">
                                     <label htmlFor="exampleInputPassword1">Description</label>
-                                    <input
-                                        type="text"
+                                    <textarea
                                         className="form-control"
+                                        id="exampleFormControlTextarea1"
+                                        rows={3}
                                         name='description'
                                         onChange={storeInput}
                                         placeholder="Enter Description"
                                         value={currentnote.description}
-                                    /></div>
+                                    />
+                                </div>
                             </form>
                         </div>
                         <div className="modal-footer">
@@ -80,14 +83,14 @@ export default function Updatemodal(props) {
                             >
                                 Close
                             </button>
-                            
-                            {currentnote && currentnote.description && currentnote.description.length > 5
-                            && currentnote && currentnote.title && currentnote.title.length >5
-                            && <button  type="button" className="btn btn-primary" onClick={handleform}>
-                            Update Note
-                        </button>}
 
-                            
+                            {currentnote && currentnote.description && currentnote.description.length > 5
+                                && currentnote && currentnote.title && currentnote.title.length > 5
+                                && <button type="button" className="btn btn-primary" onClick={handleform}>
+                                    Update Note
+                                </button>}
+
+
 
                         </div>
                     </div>

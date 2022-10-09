@@ -6,7 +6,7 @@ export default function Navbar(props) {
     let history = useNavigate()
     const logout = () => {
         localStorage.removeItem('token')
-        history('/login')
+        history('/auth')
         props.showAlert('Logout Successfully', "success")
     }
     const hello = "hldf"
@@ -16,7 +16,7 @@ export default function Navbar(props) {
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to="/">Navbar</Link>
+                    <Link className="navbar-brand" to="/">INotebook</Link>
                     <button
                         className="navbar-toggler"
                         type="button"
