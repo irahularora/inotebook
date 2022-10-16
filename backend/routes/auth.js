@@ -22,7 +22,7 @@ router.post('/createuser', [
         // Check wheter the user with same email exists already
         let user = await User.findOne({ email: req.body.email })
         if (user) {
-            return res.status(400).json({sucess: false, error: "User Already Exists" })
+            return res.status(400).json({ sucess: false, error: [{ msg: "User Already Exists" }] })
         }
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(req.body.password, salt);
@@ -38,9 +38,9 @@ router.post('/createuser', [
             }
         }
         const authToken = jwt.sign(data, JWT_SECRET)
-        res.json({success: true, authToken: authToken })
+        res.json({ success: true, authToken: authToken })
     } catch (error) {
-        return res.status(500).json({ error: "Something Went Wrong" })
+        return res.status(500).json({ error: [{ msg: "Something Went Wrong" }] })
     }
 
 })
@@ -60,12 +60,12 @@ router.post('/login', [
     try {
         let user = await User.findOne({ email })
         if (!user) {
-            return res.status(400).json({ error: "Please try to login with correct credentials" })
+            return res.status(400).json({ error: [{ msg: "Please try to login with correct credentials" }] })
         }
         const passwordCheck = await bcrypt.compare(password, user.password)
         if (!passwordCheck) {
             sucess = false
-            return res.status(400).json({ error: "Please try to login with correct credentials" })
+            return res.status(400).json({ error: [{ msg: "Please try to login with correct credentials" }] })
 
         }
         const data = {
@@ -77,20 +77,20 @@ router.post('/login', [
         res.json({ success: true, authToken: authToken })
     }
     catch (error) {
-        return res.status(500).json({ error: "Something Went Wrong" })
+        return res.status(500).json({ error: [{ msg: "Something Went Wrong" }] })
     }
 })
 
 
 //Authanticate a user using: post "/api/auth/createuser". LOgin required
-router.post('/getuser', fetchuser , async (req, res) => {
+router.post('/getuser', fetchuser, async (req, res) => {
     try {
         const userId = req.user.id;
         const getuser = await User.findById(userId).select('-password')
         res.send(getuser)
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ error: "Something Went Wrong" })
+        return res.status(500).json({ error: [{ msg: "Something Went Wrong" }] })
     }
 })
 

@@ -29,7 +29,7 @@ function App() {
             <Route exact path='/' element={<Home showAlert={showAlert} alert={alert} />}> </Route>
             <Route exact path='/about' element={<About alert={alert} />}> </Route>
             <Route exact path='/user' element={<User alert={alert}  />}> </Route>
-            <Route exact path='/auth' element={<LoginSignup showAlert={showAlert} />}> </Route>
+            <Route exact path='/auth' element={<LoginSignup showAlert={showAlert} alert={alert} />}> </Route>
           </Routes>
       </Router>
     </NoteState>

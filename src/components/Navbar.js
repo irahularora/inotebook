@@ -9,9 +9,6 @@ export default function Navbar(props) {
         history('/auth')
         props.showAlert('Logout Successfully', "success")
     }
-    const hello = "hldf"
-    console.log(hello)
-
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

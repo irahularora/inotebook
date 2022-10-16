@@ -1,9 +1,16 @@
-import React  from 'react'
+import React, { useEffect }  from 'react'
+import { useNavigate } from 'react-router-dom'
 import Addnote from './Addnote'
 import Alert from './Alert'
 import Navbar from './Navbar'
 import Notes from "./Notes"
 export default function Home(props) {
+  const history = useNavigate()
+  useEffect(() => {
+    if(!localStorage.getItem("token")){
+        history('/auth')
+    }
+})
   return (
     <>
     <Navbar/>

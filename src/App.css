@@ -19,7 +19,9 @@
 .btn-primary.disabled, .btn-primary:disabled {
    background-color: var(--btn-bg-color-d);
 }
-
+.alerter{
+  z-index: 6;
+}
 .carder{
   width: 18rem;
   margin: 5px;
@@ -306,6 +308,9 @@ form.sign-in-form {
     height: 100vh;
   }
 }@media (max-width: 870px) {
+  .alerter{
+    z-index: 7;
+  }
   .containerunique {
     min-height: 800px;
     height: 100vh;

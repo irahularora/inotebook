@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Alert from './Alert'
 
 export default function LoginSignup(props) {
+  var history = useNavigate()
   const host = "http://localhost:5000"
-  let history = useNavigate()
   const [containerName, setconName] = useState("containerunique")
+  const [alertSide, setAlertSide] = useState("right")
 
   const [signin, setSignin] = useState({ email: "", password: "" })
   const [signup, setSignup] = useState({ name: "", email: "", password: "", cpassword: "" })
@@ -34,11 +36,10 @@ export default function LoginSignup(props) {
         props.showAlert("LogedIn Successfully", 'success')
       }
       else {
-        props.showAlert(json.error, 'danger')
+        props.showAlert(json.error[0].msg, 'danger')
       }
     }
     else {
-      console.log(signup);
       if (signup.password === signup.cpassword) {
         const response = await fetch(`${host}/api/auth/createuser/`, {
           method: 'POST',
@@ -48,12 +49,13 @@ export default function LoginSignup(props) {
           body: JSON.stringify({ name: signup.name, email: signup.email, password: signup.password })
         });
         const json = await response.json()
+        console.log(json);
         if (json.success) {
           localStorage.setItem('token', json.authToken)
           props.showAlert("Account Register Successfully", 'success')
         }
         else {
-          props.showAlert(json.error, 'danger')
+          props.showAlert(json.error[0].msg, 'danger')
         }
       }
       else {
@@ -64,15 +66,21 @@ export default function LoginSignup(props) {
 
   const clickHandler = (e) => {
     if (e.currentTarget.name === 'signup') {
+      setAlertSide("left")
       setconName("containerunique sign-up-mode");
     }
     else {
       setconName("containerunique");
+      setAlertSide("right")
     }
   }
-
+  const temp = () => {
+    props.showAlert("this is working ", "success")
+  }
   return (
     <>
+      <button onClick={temp} >click me</button>
+      <Alert mess={props.alert} align={alertSide} />
       <div className={containerName}>
         <div className="forms-container">
           <div className="signin-signup">
@@ -86,7 +94,7 @@ export default function LoginSignup(props) {
                 <i className="fas fa-lock" />
                 <input type="password" name='password' onChange={signinStore} placeholder="Password" />
               </div>
-              <input type="submit" name='signin' onClick={handlesubmit} defaultValue="Login" className="btn solid" />
+              <button className="btn solid" name='signin' onClick={handlesubmit}>Submit</button>
             </form>
 
 
@@ -117,7 +125,7 @@ export default function LoginSignup(props) {
             <div className="content">
               <h3>New here ?</h3>
               <p>
-              Sign up for INotebook and use it for free. It's perfect for writing down your thoughts, notes and ideas so you have them all in one place.
+                Sign up for INotebook and use it for free. It's perfect for writing down your thoughts, notes and ideas so you have them all in one place.
               </p>
               <button className="btn transparent" name='signup' id="sign-up-btn" onClick={clickHandler}>
                 Sign up
@@ -129,7 +137,7 @@ export default function LoginSignup(props) {
             <div className="content">
               <h3>One of us ?</h3>
               <p>
-              LogIn InstaNotebook and use it for free. It's perfect for writing down your thoughts, notes and ideas so you have them all in one place.
+                LogIn InstaNotebook and use it for free. It's perfect for writing down your thoughts, notes and ideas so you have them all in one place.
               </p>
               <button className="btn transparent" id="sign-in-btn" name='signin' onClick={clickHandler}>
                 Sign in
