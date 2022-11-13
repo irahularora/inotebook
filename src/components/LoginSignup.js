@@ -4,7 +4,7 @@ import Alert from './Alert'
 
 export default function LoginSignup(props) {
   var history = useNavigate()
-  const host = "http://localhost:5000"
+  const host = `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
   const [containerName, setconName] = useState("containerunique")
   const [alertSide, setAlertSide] = useState("right")
 
@@ -74,12 +74,8 @@ export default function LoginSignup(props) {
       setAlertSide("right")
     }
   }
-  const temp = () => {
-    props.showAlert("this is working ", "success")
-  }
   return (
     <>
-      <button onClick={temp} >click me</button>
       <Alert mess={props.alert} align={alertSide} />
       <div className={containerName}>
         <div className="forms-container">

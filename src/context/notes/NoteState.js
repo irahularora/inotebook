@@ -5,7 +5,7 @@ import { createContext } from "react";
 const NoteContext = createContext()
 const NoteState = (props) => {
 
-    const host = "http://localhost:5000"
+    const host = `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
     const notesInit = []
     const [notes, setNotes] = useState(notesInit)
     const [user,setUser] = useState([])
