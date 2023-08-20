@@ -4,7 +4,6 @@ import Alert from './Alert';
 
 export default function LoginSignup(props) {
   var history = useNavigate();
-  const host = `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`;
   const [containerName, setconName] = useState('containerunique');
   const [alertSide, setAlertSide] = useState('right');
 
@@ -26,7 +25,7 @@ export default function LoginSignup(props) {
   const handlesubmit = async (e) => {
     e.preventDefault();
     if (e.currentTarget.name === 'signin') {
-      const response = await fetch(`${host}/api/auth/login`, {
+      const response = await fetch(`/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +45,7 @@ export default function LoginSignup(props) {
       }
     } else {
       if (signup.password === signup.cpassword) {
-        const response = await fetch(`${host}/api/auth/createuser/`, {
+        const response = await fetch(`/api/auth/createuser/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
