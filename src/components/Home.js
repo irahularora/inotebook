@@ -10,12 +10,15 @@ export default function Home(props) {
     if (!localStorage.getItem('token')) {
       history('/auth');
     }
-  });
+  }, []);
   return (
     <>
       <Navbar />
       <Alert mess={props.alert} />
-      <div className="container my-4" style={{ width: '90%', margin: 'auto' }}>
+      <div
+        className="container my-4"
+        style={{ width: '90%', margin: 'auto', marginTop: '5rem' }}
+      >
         <Addnote showAlert={props.showAlert} />
         <Notes showAlert={props.showAlert} />
       </div>

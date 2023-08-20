@@ -7,7 +7,7 @@ export default function About(props) {
     <div>
       <Navbar />
       <Alert mess={props.alert} />
-      <div className="container">
+      <div className="container" style={{ marginTop: '1.5rem' }}>
         <h1>About Us</h1>
         <div className="accordion" id="accordionExample">
           <div className="accordion-item">

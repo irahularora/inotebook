@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Noteitem from './Noteitem';
-import { NoteContext } from '../context/notes/NoteState';
+import { NoteContext } from '../context/NoteState';
 import Updatemodal from './Updatemodal';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,11 +11,12 @@ export default function Notes(props) {
   const [note, setNote] = useState({ title: '', description: '', tag: '' });
   useEffect(() => {
     if (localStorage.getItem('token')) {
+      console.log('this is working');
       getNotes();
     } else {
       history('/auth');
     }
-  });
+  }, []);
   const ref = useRef(null);
   const updater = async (note) => {
     ref.current.click();

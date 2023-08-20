@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NoteContext } from '../context/notes/NoteState';
+import { NoteContext } from '../context/NoteState';
 
 export default function Noteitem(props) {
   const context = useContext(NoteContext);
@@ -18,12 +18,12 @@ export default function Noteitem(props) {
           <div className="action">
             <i
               className="fa-solid fa-trash-can"
-              style={{ color: 'red' }}
+              style={{ color: 'red', cursor: 'pointer' }}
               onClick={deleter}
             ></i>
             <i
               className="fa-solid fa-pen-to-square mx-2"
-              style={{ color: 'orange' }}
+              style={{ color: 'orange', cursor: 'pointer' }}
               onClick={() => updateNote(note)}
             ></i>
           </div>

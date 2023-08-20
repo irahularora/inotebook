@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
-import { NoteContext } from '../context/notes/NoteState';
+import { NoteContext } from '../context/NoteState';
 
 export default function Updatemodal(props) {
   const context = useContext(NoteContext);
