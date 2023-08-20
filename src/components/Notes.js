@@ -11,7 +11,6 @@ export default function Notes(props) {
   const [note, setNote] = useState({ title: '', description: '', tag: '' });
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      console.log('this is working');
       getNotes();
     } else {
       history('/auth');

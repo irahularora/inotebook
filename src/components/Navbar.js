@@ -4,7 +4,6 @@ import logo from '../logo.png';
 
 export default function Navbar(props) {
   let history = useNavigate();
-  console.log(Location.pathname);
   const logout = () => {
     localStorage.removeItem('token');
     history('/auth');

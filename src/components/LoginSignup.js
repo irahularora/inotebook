@@ -58,7 +58,6 @@ export default function LoginSignup(props) {
           }),
         });
         const json = await response.json();
-        console.log(json);
         if (json.success) {
           localStorage.setItem('token', json.authToken);
           props.showAlert('Account Register Successfully', 'success');

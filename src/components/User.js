@@ -9,8 +9,6 @@ export default function User(props) {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       getdetails();
-    } else {
-      console.log('kdj');
     }
   }, []);
 
