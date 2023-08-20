@@ -1,79 +1,85 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Alert from './Alert'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Alert from './Alert';
 
 export default function LoginSignup(props) {
-  var history = useNavigate()
-  const host = `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
-  const [containerName, setconName] = useState("containerunique")
-  const [alertSide, setAlertSide] = useState("right")
+  var history = useNavigate();
+  const host = `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`;
+  const [containerName, setconName] = useState('containerunique');
+  const [alertSide, setAlertSide] = useState('right');
 
-  const [signin, setSignin] = useState({ email: "", password: "" })
-  const [signup, setSignup] = useState({ name: "", email: "", password: "", cpassword: "" })
+  const [signin, setSignin] = useState({ email: '', password: '' });
+  const [signup, setSignup] = useState({
+    name: '',
+    email: '',
+    password: '',
+    cpassword: '',
+  });
 
   const signinStore = (e) => {
-    setSignin({ ...signin, [e.target.name]: e.target.value })
-  }
+    setSignin({ ...signin, [e.target.name]: e.target.value });
+  };
   const signupStore = (e) => {
-    setSignup({ ...signup, [e.target.name]: e.target.value })
-  }
-
+    setSignup({ ...signup, [e.target.name]: e.target.value });
+  };
 
   const handlesubmit = async (e) => {
-    e.preventDefault()
-    if (e.currentTarget.name === "signin") {
+    e.preventDefault();
+    if (e.currentTarget.name === 'signin') {
       const response = await fetch(`${host}/api/auth/login`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: signin.email, password: signin.password })
+        body: JSON.stringify({
+          email: signin.email,
+          password: signin.password,
+        }),
       });
-      const json = await response.json()
+      const json = await response.json();
       if (json.success) {
-        localStorage.setItem('token', json.authToken)
-        history('/')
-        props.showAlert("LogedIn Successfully", 'success')
+        localStorage.setItem('token', json.authToken);
+        history('/');
+        props.showAlert('LogedIn Successfully', 'success');
+      } else {
+        props.showAlert(json.error[0].msg, 'danger');
       }
-      else {
-        props.showAlert(json.error[0].msg, 'danger')
-      }
-    }
-    else {
+    } else {
       if (signup.password === signup.cpassword) {
         const response = await fetch(`${host}/api/auth/createuser/`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name: signup.name, email: signup.email, password: signup.password })
+          body: JSON.stringify({
+            name: signup.name,
+            email: signup.email,
+            password: signup.password,
+          }),
         });
-        const json = await response.json()
+        const json = await response.json();
         console.log(json);
         if (json.success) {
-          localStorage.setItem('token', json.authToken)
-          props.showAlert("Account Register Successfully", 'success')
+          localStorage.setItem('token', json.authToken);
+          props.showAlert('Account Register Successfully', 'success');
+        } else {
+          props.showAlert(json.error[0].msg, 'danger');
         }
-        else {
-          props.showAlert(json.error[0].msg, 'danger')
-        }
-      }
-      else {
-        props.showAlert('Password and Confirm Password Must be Same', 'danger')
+      } else {
+        props.showAlert('Password and Confirm Password Must be Same', 'danger');
       }
     }
-  }
+  };
 
   const clickHandler = (e) => {
     if (e.currentTarget.name === 'signup') {
-      setAlertSide("left")
-      setconName("containerunique sign-up-mode");
+      setAlertSide('left');
+      setconName('containerunique sign-up-mode');
+    } else {
+      setconName('containerunique');
+      setAlertSide('right');
     }
-    else {
-      setconName("containerunique");
-      setAlertSide("right")
-    }
-  }
+  };
   return (
     <>
       <Alert mess={props.alert} align={alertSide} />
@@ -84,35 +90,75 @@ export default function LoginSignup(props) {
               <h2 className="title">Sign in</h2>
               <div className="input-field">
                 <i className="fas fa-user" />
-                <input type="text" name='email' onChange={signinStore} placeholder="Username" />
+                <input
+                  type="text"
+                  name="email"
+                  onChange={signinStore}
+                  placeholder="Username"
+                />
               </div>
               <div className="input-field">
                 <i className="fas fa-lock" />
-                <input type="password" name='password' onChange={signinStore} placeholder="Password" />
+                <input
+                  type="password"
+                  name="password"
+                  onChange={signinStore}
+                  placeholder="Password"
+                />
               </div>
-              <button className="btn solid" name='signin' onClick={handlesubmit}>Submit</button>
+              <button
+                className="btn solid"
+                name="signin"
+                onClick={handlesubmit}
+              >
+                Submit
+              </button>
             </form>
-
 
             <form action="#" className="sign-up-form">
               <h2 className="title">Sign up</h2>
               <div className="input-field">
                 <i className="fas fa-user" />
-                <input type="text" name='name' onChange={signupStore} placeholder="Name" />
+                <input
+                  type="text"
+                  name="name"
+                  onChange={signupStore}
+                  placeholder="Name"
+                />
               </div>
               <div className="input-field">
                 <i className="fas fa-envelope" />
-                <input type="email" name='email' onChange={signupStore} placeholder="Email" />
+                <input
+                  type="email"
+                  name="email"
+                  onChange={signupStore}
+                  placeholder="Email"
+                />
               </div>
               <div className="input-field">
                 <i className="fas fa-lock" />
-                <input type="password" name='password' onChange={signupStore} placeholder="Password" />
+                <input
+                  type="password"
+                  name="password"
+                  onChange={signupStore}
+                  placeholder="Password"
+                />
               </div>
               <div className="input-field">
                 <i className="fas fa-lock" />
-                <input type="password" name='cpassword' onChange={signupStore} placeholder="Confirm Password" />
+                <input
+                  type="password"
+                  name="cpassword"
+                  onChange={signupStore}
+                  placeholder="Confirm Password"
+                />
               </div>
-              <input type="submit" className="btn" onClick={handlesubmit} defaultValue="Sign up" />
+              <input
+                type="submit"
+                className="btn"
+                onClick={handlesubmit}
+                defaultValue="Sign up"
+              />
             </form>
           </div>
         </div>
@@ -121,9 +167,16 @@ export default function LoginSignup(props) {
             <div className="content">
               <h3>New here ?</h3>
               <p>
-                Sign up for INotebook and use it for free. It's perfect for writing down your thoughts, notes and ideas so you have them all in one place.
+                Sign up for INotebook and use it for free. It's perfect for
+                writing down your thoughts, notes and ideas so you have them all
+                in one place.
               </p>
-              <button className="btn transparent" name='signup' id="sign-up-btn" onClick={clickHandler}>
+              <button
+                className="btn transparent"
+                name="signup"
+                id="sign-up-btn"
+                onClick={clickHandler}
+              >
                 Sign up
               </button>
             </div>
@@ -133,9 +186,16 @@ export default function LoginSignup(props) {
             <div className="content">
               <h3>One of us ?</h3>
               <p>
-                LogIn InstaNotebook and use it for free. It's perfect for writing down your thoughts, notes and ideas so you have them all in one place.
+                LogIn InstaNotebook and use it for free. It's perfect for
+                writing down your thoughts, notes and ideas so you have them all
+                in one place.
               </p>
-              <button className="btn transparent" id="sign-in-btn" name='signin' onClick={clickHandler}>
+              <button
+                className="btn transparent"
+                id="sign-in-btn"
+                name="signin"
+                onClick={clickHandler}
+              >
                 Sign in
               </button>
             </div>
@@ -143,7 +203,6 @@ export default function LoginSignup(props) {
           </div>
         </div>
       </div>
-
     </>
-  )
+  );
 }
